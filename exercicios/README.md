@@ -2,4 +2,4 @@
 
 #### Exercicios
 
-+ 21. Desafio Variáveis e Constantes
++ 23. Inferência de Tipos
