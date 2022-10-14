@@ -1,6 +1,9 @@
 
 package br.com.controlevendas.view;
 
+import br.com.controlevendas.dao.ClientesDao;
+import br.com.controlevendas.model.Clientes;
+
 public class FrmCliente extends javax.swing.JFrame {
 
     // Creates new form FrmCliente
@@ -160,7 +163,7 @@ public class FrmCliente extends javax.swing.JFrame {
         cbuf.setBackground(new java.awt.Color(204, 204, 204));
         cbuf.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         cbuf.setForeground(new java.awt.Color(0, 0, 0));
-        cbuf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbuf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "MG", "RJ" }));
 
         jLabel26.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 0, 0));
@@ -266,7 +269,6 @@ public class FrmCliente extends javax.swing.JFrame {
                                     .addComponent(txtcep, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                                     .addComponent(txtbairro))
                                 .addGap(11, 11, 11)))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -415,6 +417,11 @@ public class FrmCliente extends javax.swing.JFrame {
         btnsalvar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         btnsalvar.setForeground(new java.awt.Color(0, 0, 0));
         btnsalvar.setText("SALVAR");
+        btnsalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalvarActionPerformed(evt);
+            }
+        });
 
         btnadicionar.setBackground(new java.awt.Color(204, 204, 204));
         btnadicionar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
@@ -497,6 +504,38 @@ public class FrmCliente extends javax.swing.JFrame {
     private void btnadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnadicionarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnadicionarActionPerformed
+
+    private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
+
+        Clientes obj = new Clientes();
+            
+        // Pega os valores dos campos armazena nos atributos da Classe
+        obj.setNome(txtnome.getText());
+        obj.setRg(txtrg.getText());
+        obj.setCpf(txtcpf.getText());
+        obj.setEmail(txtemail.getText());
+        obj.setTelefone(txtfixo.getText());
+        obj.setCelular(txtcelular.getText());
+        obj.setCep(txtbairro.getText());
+        obj.setEndereco(txtendereco.getText());
+            
+        // 3º Seta o numero|                  | 1º pega o valor do campo
+        // no atributo     | 2º Converte      | numero armazenado na 
+        // numero          | em tipo inteiro  | variavel txtnumero
+        obj.setNumero(Integer.parseInt(txtnumero.getText()));
+        
+        obj.setComplemento(txtcomplemento.getText());
+        obj.setBairro(txtbairro.getText());
+        obj.setCidade(txtcidade.getText());
+        obj.setUf(cbuf.getSelectedItem().toString());
+            
+        ClientesDao dao = new ClientesDao();
+            
+        // executa o metodo cadastrar clientes da classe dao
+        // e envia como parametro o obj com os valores dos campos
+        dao.cadastrarCliente(obj);    
+        
+    }//GEN-LAST:event_btnsalvarActionPerformed
 
     public static void main(String args[]) {
         

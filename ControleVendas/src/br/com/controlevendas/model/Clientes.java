@@ -42,7 +42,7 @@ public class Clientes {
     /*
         Setters:
         Metodo setNome é void não retorna nada esse metodo recebe uma
-        String como parametro (nome) e seta o valor do atributo nome
+        String como parametro que é o valor do campo nome e seta o valor do atributo nome
         em this.nome recebendo o valor do parametro recebido no metodo
         OBS: O atributo nome this.nome recebe o parametro do tipo (String nome)
     */

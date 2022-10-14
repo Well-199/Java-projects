@@ -1,3 +1,3 @@
 #### Projeto Controle de Vendas Desktop
 
-+ 8. Testando a Conexao com o banco de dados
++ 11 Criando o método listarClientes na classe ClienteDAO
