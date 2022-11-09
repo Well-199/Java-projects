@@ -1,9 +1,19 @@
 package br.com.controlevendas.view;
 
-public class FrmPagamentos extends javax.swing.JFrame {
+import br.com.controlevendas.dao.VendasDao;
+import br.com.controlevendas.model.Clientes;
+import br.com.controlevendas.model.Vendas;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+public class FrmPagamentos extends javax.swing.JFrame {
+    
+    Clientes cliente_id = new Clientes();
+    
     public FrmPagamentos() {
         initComponents();
+        
+        System.out.println(cliente_id);
         
         // Para os campos iniciarem preenchidos com um valor
         // é necessario setar aqui na inicialização da tela
@@ -209,8 +219,30 @@ public class FrmPagamentos extends javax.swing.JFrame {
         // Inseri no input o valor do troco
         txttroco.setText(String.valueOf(troco));
         
+        Vendas objvenda = new Vendas();
+        
+        // Dados do cliente sera necessario somente o id mas é passado todo o objeto
+        objvenda.setCliente(cliente_id);
+        
+        // Pega a data a venda
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String data = dateFormat.format(now);
+        
+        // inseri a data da venda no atributo
+        objvenda.setData_venda(data);
+        
+        // Total da venda
+        objvenda.setTotal_venda(totalvenda);
+        
+        // Instancia o dao para enviar o objeto vendas para a camada dao (sql)
+        VendasDao daoVendas = new VendasDao();
+        
+        // envia os dados da venda para o metodo dao
+        daoVendas.cadastrarVenda(objvenda);
+        
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
-
+    
     public static void main(String args[]) {
        
         try {

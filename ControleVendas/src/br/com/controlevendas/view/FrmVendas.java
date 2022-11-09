@@ -21,10 +21,15 @@ public class FrmVendas extends javax.swing.JFrame {
     int quantidade;
     
     DefaultTableModel carrinho;
+    
+    Clientes clientes = new Clientes();
 
     // Creates new form FrmCliente
     public FrmVendas() {
         initComponents();
+        
+        // Quantidade inicia com valor 1
+        txtquantidade.setText("1");
         
         // Inicia a aplicação no centro da tela
         this.setLocationRelativeTo(null);
@@ -456,6 +461,9 @@ public class FrmVendas extends javax.swing.JFrame {
         // Agora posso passar o valor do atributo total para tela de pagemantos
         telaPagamentos.txttotal.setText(String.valueOf(total));
         
+        // O objeto Clientes é armazenado no atributo publico cliente_id do FrmPagamentos
+        telaPagamentos.cliente_id = clientes;
+        
         // ao clicar no botão pagamento com o valor no atributo total
         // abre a tela de finalizar pagamentos que foi instanciada em telaPagamentos
         telaPagamentos.setVisible(true);
@@ -490,14 +498,13 @@ public class FrmVendas extends javax.swing.JFrame {
     // Busca um cliente pelo CPF
     private void btnConsultaPorCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaPorCPFActionPerformed
 
-        Clientes obj = new Clientes();
         ClientesDao dao = new ClientesDao();
             
         // Passo como parametro o cpf e pego o retorno do dao em obj
-        obj = dao.buscaClientePorCPF(txtcpf.getText());
+        clientes = dao.buscaClientePorCPF(txtcpf.getText());
             
         // retiro o nome do objeto retornado do dao e insiro no input txtnome
-        txtnome.setText(obj.getNome());
+        txtnome.setText(clientes.getNome());
             
     }//GEN-LAST:event_btnConsultaPorCPFActionPerformed
     
@@ -553,14 +560,13 @@ public class FrmVendas extends javax.swing.JFrame {
         // Evento pega o numero da tecla
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
             
-            Clientes obj = new Clientes();
             ClientesDao dao = new ClientesDao();
             
             // Passo como parametro o cpf e pego o retorno do dao em obj
-            obj = dao.buscaClientePorCPF(txtcpf.getText());
+            clientes = dao.buscaClientePorCPF(txtcpf.getText());
             
             // retiro o nome do objeto retornado do dao e insiro no input txtnome
-            txtnome.setText(obj.getNome());
+            txtnome.setText(clientes.getNome());
             
         }
         

@@ -6,7 +6,6 @@ public class Vendas {
     private Clientes cliente;
     private String data_venda;
     private Double total_venda;
-    private String obs;
 
     public int getId() {
         return id;
@@ -40,12 +39,4 @@ public class Vendas {
         this.total_venda = total_venda;
     }
 
-    public String getObs() {
-        return obs;
-    }
-
-    public void setObs(String obs) {
-        this.obs = obs;
-    }
-    
 }
