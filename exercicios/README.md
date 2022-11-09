@@ -2,4 +2,4 @@
 
 #### Exercicios
 
-+ 23. Inferência de Tipos
++ 49. Operadores Relacionais

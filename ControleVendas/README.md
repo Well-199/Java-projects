@@ -1,3 +1,6 @@
 #### Projeto Controle de Vendas Desktop
 
-+ 11 Criando o método listarClientes na classe ClienteDAO
+
++ 57. Criando a classe VendasDAO com os Métodos CadastrarVenda e RetornaUltimaVenda 3:30
+
+

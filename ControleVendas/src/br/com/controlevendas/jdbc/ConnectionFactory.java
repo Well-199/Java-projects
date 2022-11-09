@@ -11,7 +11,7 @@ public class ConnectionFactory {
         
         try {
             
-            return DriverManager.getConnection();
+            return DriverManager.getConnection("jdbc:mysql://", "", "");
             
         }catch(Exception erro){
             
