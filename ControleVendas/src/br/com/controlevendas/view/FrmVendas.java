@@ -463,6 +463,7 @@ public class FrmVendas extends javax.swing.JFrame {
         
         // O objeto Clientes é armazenado no atributo publico cliente_id do FrmPagamentos
         telaPagamentos.cliente_id = clientes;
+        telaPagamentos.carrinho = carrinho;
         
         // ao clicar no botão pagamento com o valor no atributo total
         // abre a tela de finalizar pagamentos que foi instanciada em telaPagamentos

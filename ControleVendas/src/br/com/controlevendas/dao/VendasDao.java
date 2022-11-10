@@ -37,9 +37,6 @@ public class VendasDao {
             stmt.execute();
             stmt.close();
             
-            JOptionPane.showMessageDialog(null, "Venda adicionada com sucesso!!!");
-            
-            
         } catch (SQLException e) {
             
             JOptionPane.showMessageDialog(null, "Erro ao adicionar venda: "+e);

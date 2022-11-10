@@ -1,19 +1,24 @@
 package br.com.controlevendas.view;
 
+import br.com.controlevendas.dao.ItemVendaDao;
+import br.com.controlevendas.dao.ProdutosDao;
 import br.com.controlevendas.dao.VendasDao;
 import br.com.controlevendas.model.Clientes;
+import br.com.controlevendas.model.ItemVenda;
+import br.com.controlevendas.model.Produtos;
 import br.com.controlevendas.model.Vendas;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class FrmPagamentos extends javax.swing.JFrame {
     
     Clientes cliente_id = new Clientes();
+    DefaultTableModel carrinho;
     
     public FrmPagamentos() {
         initComponents();
-        
-        System.out.println(cliente_id);
         
         // Para os campos iniciarem preenchidos com um valor
         // é necessario setar aqui na inicialização da tela
@@ -241,6 +246,58 @@ public class FrmPagamentos extends javax.swing.JFrame {
         // envia os dados da venda para o metodo dao
         daoVendas.cadastrarVenda(objvenda);
         
+        // Retorna o id da ultima venda
+        objvenda.setId(daoVendas.retornaUltimaVenda());
+        
+        // Cadastra os itens da venda
+        for(int i = 0; i < carrinho.getRowCount(); i++){
+            
+            int qtd_estoque;
+            int qtd_itens;
+            int qtd_atual;
+            
+            //carrinho.getRowCount() retorna a quantidade de linhas da tabela 
+            
+            ProdutosDao dao_produto = new ProdutosDao();
+            Produtos produtos = new Produtos();
+            ItemVenda item = new ItemVenda();
+            
+            // Pega o objeto venda e seta os valores nos atributos da classe
+            item.setVenda(objvenda);
+            
+            // Pega o valor da coluna codigo
+            produtos.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
+            item.setProduto(produtos);
+            
+            // Pega o valor da coluna quantidade
+            item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
+            
+            // Pega o total somado preço x quantidade do item na coluna subtotal
+            item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
+            
+            // Istancia a classe ItemVendaDao para ter acesso ao metodo de cadastrarItem
+            ItemVendaDao daoitem = new ItemVendaDao();
+            
+            // envia o objeto item
+            daoitem.cadastraItem(item);
+            
+            // APÓS ADICIONAR OS ITENS DA VENDA INICIA A BAIXA NO ESTOQUE
+            
+            int produto_id = Integer.parseInt(carrinho.getValueAt(i, 0).toString());
+            
+            qtd_estoque = dao_produto.retornaEstoqueAtual(produto_id);
+            qtd_itens = Integer.parseInt(carrinho.getValueAt(i, 2).toString());
+            
+            // Subtrai do estoque a quantidade de itens comprado
+            qtd_atual = qtd_estoque - qtd_itens;
+            
+            // Envia o id do produto e a quantidade atualizada para o dao de inserção no banco
+            dao_produto.baixaEstoque(produto_id, qtd_atual);
+            
+        }
+        
+        // Só mostra a mensagem após a venda adicionada e os itens da venda tambem adicionados
+        JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!!!");
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
     
     public static void main(String args[]) {
